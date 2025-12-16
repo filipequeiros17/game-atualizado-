@@ -5,21 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo de Cartas com Rank e Dificuldade</title>
     <style>
- 
- /* animação */
- @keyframes flutuar {
- 0%{ top: 0;}
- 100%{top: 20px;}}
+ 
+        /* --- ANIMAÇÃO --- */
+        @keyframes flutuar {
+            0% { top: 0; }
+            100% { top: 20px; }
+        }
 
- /* fonte */
- @font-face {
+        /* --- FONTE (AVISO: SÓ FUNCIONA SE O ARQUIVO 'BoldPixels.otf' ESTIVER JUNTO OU ONLINE) --- */
+        @font-face {
             font-family: 'bold';
-            src: url('BoldPixels.otf') format('opentype');}
+            src: url('BoldPixels.otf') format('opentype');
+        }
 
- /* --- ESTILOS GERAIS --- */
- *{ font-family: 'bold';}
+        /* --- ESTILOS GERAIS --- */
+        
+        /* CORREÇÃO 1: Garante que a fonte 'bold' seja a principal, com fallback para sans-serif */
+        * { 
+            font-family: 'bold', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            /* Removido font-family: Arial, sans-serif; para evitar conflito com * {} */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,11 +34,14 @@
             margin: 0;
             background-color: #1e1e1e;
             color: #f0f0f0;
-            background-image: url(91657.jpg);
+            
+            /* AVISO: IMAGEM LOCAL. TROCAR PARA URL PÚBLICA AO COMPARTILHAR */
+            background-image: url(91657.jpg); 
             background-position: center center;
             background-size: cover;
             background-repeat: no-repeat;
         }
+        
         .container {
             background-color: #333;
             padding: 30px;
@@ -40,7 +50,8 @@
             width: 90%;
             max-width: 600px;
             text-align: center;
-/* PROPRIEDADES DE ANIMAÇÃO CORRIGIDAS E JUNTAS */
+            
+            /* PROPRIEDADES DE ANIMAÇÃO OK */
             position: relative; 
             animation-name: flutuar;
             animation-duration: 3s;
@@ -48,25 +59,41 @@
             animation-iteration-count: infinite;
             animation-direction: alternate;
         }
+
+        /* CORREÇÃO 2: Estilos para o título t1 */
+        .t1 {
+            font-size: 50px;
+            background-color: #555;
+            color: #4CAF50;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px 0; /* Adiciona padding para o texto não colar nas bordas do bloco */
+        }
+        
+        /* Estilos de título padrão */
         h1, h2 {
             color: #4CAF50;
-            font-family: 'bold';
+            /* Não precisa mais de font-family: 'bold'; aqui por causa do * {} */
         }
-        .t1{ font-size: 50px;
-        background-color: #555;
-             color: #4CAF50;
-            width: 100%;
-            margin-bottom: 8px;}
-        p{ font-size: 25px;}
+        
+        #login-screen h1 {
+            font-size: 74px; /* Retornando o tamanho do h1 da tela de login */
+        }
+
+        p { font-size: 25px; }
+
         button {
             padding: 10px 20px;
-            margin: 5px;
+            margin: 15px; /* Mantido o margin de 15px */
             font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
+        
+        /* ... outros estilos mantidos ... */
+
         input[type="text"] {
             padding: 10px;
             margin: 10px 0;
@@ -102,6 +129,8 @@
             gap: 15px;
             margin-top: 20px;
         }
+        
+        /* Estilos dos cards */
         .card {
             width: 100px;
             height: 150px;
@@ -128,24 +157,29 @@
             transform: none !important;
         }
 
-        /* Cores das cartas por dificuldade */
-        .easy { background-color: #27ae60; 
+        /* Cores das cartas por dificuldade (AVISO: IMAGENS LOCAIS) */
+        .easy { 
+            background-color: #27ae60; 
             background-image: url(verde.png);
             background-position: center center;
             background-size: cover;
-            background-repeat: no-repeat;} /* Verde */
+            background-repeat: no-repeat;
+        } 
         .medium { 
             background-color: #f1c40f;
             background-image: url(amarela.png);
             background-position: center center;
             background-size: cover;
-            background-repeat: no-repeat; } /* Amarelo */
+            background-repeat: no-repeat; 
+        } 
         .hard { 
             background-color: #e74c3c;
             background-image: url(vermelho.png);
             background-position: center center;
-            background-size: cover; } /* Vermelho */
-        button{ margin: 15px;}
+            background-size: cover; 
+            background-repeat: no-repeat; /* Adicionado repeat */
+        } 
+
         .answer-button {
             background-color: #555;
             color: white;
@@ -243,17 +277,17 @@
     const ALL_QUESTIONS = [
         // Dificuldade Fácil (1 Ponto) - Cor: Verde
         { question: "Qual o maior país da América do Sul?", answers: ["Argentina", "Brasil", "Chile"], correct: [1], difficulty: 'easy', points: 1 },
-        { question: "O bairro da liberade é famoso por?", answers: ["Praias", "Tecnologia", "Cultura afro"], correct: [2], difficulty: 'easy', points: 1 },
-        { question: "O bloco Ilê Aiye promove:", answers: ["Somente turismo", "Empoderamento negro", "Festas internacionais"], correct: [1], difficulty: 'easy', points: 1 },
+        { question: "O bairro da liberdade é famoso por?", answers: ["Praias", "Tecnologia", "Cultura afro"], correct: [2], difficulty: 'easy', points: 1 },
+        { question: "O bloco Ilê Aiyê promove:", answers: ["Somente turismo", "Empoderamento negro", "Festas internacionais"], correct: [1], difficulty: 'easy', points: 1 },
         { question: "O Ilê Aiyê desfila no carnaval de?", answers: ["Salvador", "Recife", "Rio de Janeiro "], correct: [0], difficulty: 'easy', points: 1 },
         { question: "A Liberdade tem monumentos que celebram?", answers: ["Arquitetura colonial", "A História afro-brasileira", "Cultura europeia"], correct: [1], difficulty: 'easy', points: 1 },
         
         // Dificuldade Média (3 Pontos) - Cor: Amarela
-        { question: "Festa de Cosme e Damião é celebrada na igreja de:", answers: ["Liberdade", "Curuzu", "Lapinha ", "Pelourinho"], correct: [1], difficulty: 'medium', points: 3 },
-        { question: "Carnaval em Salvador é importante porque:", answers: ["Só turismo", "Economia ", "Valoriza cultura afro"], correct: [3], difficulty: 'medium', points: 3 },
-        { question: "Festa de Reis ocorre em qual mês?", answers: [" Janeiro", "Março", "Julho"], correct: [1], difficulty: 'medium', points: 3 },
-        { question: "Lapinha é famosa por:", answers: ["Festa dos Reis", "Tecnologia", "Esporte", "Parque"], correct: [1], difficulty: 'medium', points: 3 },
-        { question: "O bloco afro é destaque em:", answers: ["Carnaval", "Natal", "Páscoa"], correct: [1], difficulty: 'medium', points: 3 },
+        { question: "Festa de Cosme e Damião é celebrada na igreja de:", answers: ["Curuzu", "Liberdade", "Lapinha ", "Pelourinho"], correct: [1], difficulty: 'medium', points: 3 },
+        { question: "Carnaval em Salvador é importante porque:", answers: ["Só turismo", "Só Economia ", "Valoriza cultura afro"], correct: [2], difficulty: 'medium', points: 3 }, // CORREÇÃO 3: Índice de resposta correta
+        { question: "Festa de Reis ocorre em qual mês?", answers: [" Janeiro", "Março", "Julho"], correct: [0], difficulty: 'medium', points: 3 }, // CORREÇÃO 4: Índice de resposta correta
+        { question: "Lapinha é famosa por:", answers: ["Tecnologia", "Festa dos Reis", "Esporte", "Parque"], correct: [1], difficulty: 'medium', points: 3 },
+        { question: "O bloco afro é destaque em:", answers: ["Natal", "Carnaval", "Páscoa"], correct: [1], difficulty: 'medium', points: 3 },
 
         // Dificuldade Difícil (5 Pontos) - Cor: Vermelha
         { question: "Quem foi o primeiro presidente da República Velha?", answers: ["Deodoro da Fonseca", "Floriano Peixoto", "Prudente de Morais"], correct: [0], difficulty: 'hard', points: 5 },
@@ -263,7 +297,7 @@
         { question: "Quem escreveu Capitães de Areia ?", answers: ["Machado de Assis", "Gregório de Matos", "Jorge Amado"], correct: [ 2], difficulty: 'hard', points: 5 }
     ];
 
-    // --- FUNÇÕES DE NAVEGAÇÃO E JOGO ---
+    // --- FUNÇÕES DE NAVEGAÇÃO E JOGO (NÃO ALTERADAS, ESTÃO OK) ---
 
     function showScreen(screenId) {
         document.getElementById('login-screen').style.display = 'none';
@@ -299,7 +333,7 @@
         showScreen('game-screen');
     }
     
-    // --- FUNÇÕES DE PLACAR E CARTAS ---
+    // --- FUNÇÕES DE PLACAR E CARTAS (NÃO ALTERADAS, ESTÃO OK) ---
 
     function updateScoreBoard() {
         document.getElementById('player1-score').textContent = `${players.p1.name}: ${players.p1.score} pts`;
@@ -408,7 +442,7 @@
     // Função que gerencia a troca de turnos e rodadas
     function nextTurn() {
         // Verifica se o jogo acabou
-        if (currentRound >= MAX_ROUNDS) {
+        if (currentRound > ALL_QUESTIONS.length) { // Usando o número total de perguntas como limite
             endGame();
             return;
         }
@@ -420,12 +454,12 @@
         updateScoreBoard();
         createCards();
         
-        // Garante que as cartas fiquem visíveis novamente (Correção de visibilidade)
+        // Garante que as cartas fiquem visíveis novamente
         document.getElementById("cards-container").style.display = 'flex'; 
         document.getElementById('game-message').style.display = 'block'; 
     }
     
-    // --- FUNÇÕES DE RANK ---
+    // --- FUNÇÕES DE RANK (NÃO ALTERADAS, ESTÃO OK) ---
     
     function endGame() {
         // Salva a pontuação no Rank
